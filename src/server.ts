@@ -93,6 +93,14 @@ app.get("/api/v1/users", async (req: Request, res: Response) => {
       SELECT * FROM users
       `)
 
+       if (result.rowCount === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found!"
+      });
+    }
+
+
        res.status(200).json({
     success: true,
     message: "User retrived successfully!",
@@ -118,6 +126,14 @@ app.get("/api/v1/users/:id", async (req: Request, res: Response) => {
       WHERE id = $1
       `, [id],
     )
+
+     if (result.rowCount === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found!"
+      });
+    }
+
 
        res.status(200).json({
     success: true,
@@ -153,10 +169,54 @@ app.put("/api/v1/users/:id", async (req: Request, res: Response) => {
       `, [name ?? null, password ?? null, age ?? null, is_Active ?? null, id],
     )
 
+     if (result.rowCount === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found!"
+      });
+    }
+
+
        res.status(200).json({
     success: true,
     message: "User updated successfully!",
     data: result.rows[0],
+       });
+  } catch (error: any) {
+     res.status(500).json({
+    success: false,
+    message: error.message,
+    error: error,
+  })
+}
+});
+
+
+app.delete("/api/v1/users/:id", async (req: Request, res: Response) => {
+
+  try {
+
+    const { id } = req.params;
+
+
+    const result = await pool.query(`
+      DELETE FROM users
+      WHERE id = $1 
+      `, [id],
+    )
+
+     if (result.rowCount === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found!"
+      });
+    }
+
+
+       res.status(200).json({
+    success: true,
+    message: "User deleted successfully!",
+    // data: result.rows,
        });
   } catch (error: any) {
      res.status(500).json({
