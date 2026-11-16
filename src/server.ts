@@ -93,13 +93,6 @@ app.get("/api/v1/users", async (req: Request, res: Response) => {
       SELECT * FROM users
       `)
 
-       if (result.rowCount === 0) {
-      return res.status(404).json({
-        success: false,
-        message: "User not found!"
-      });
-    }
-
 
        res.status(200).json({
     success: true,
