@@ -1,13 +1,10 @@
 import express, { type Application, type Request, type Response } from "express";
 import { Pool } from "pg";
+import config from "./config";
 
-import dotenv from "dotenv";
-
-dotenv.config({ path: ".env.local" });
 
 const app: Application = express();
 
-const PORT = 5000;
 
 app.use(express.json());
 app.use(express.text());
@@ -15,7 +12,7 @@ app.use(express.urlencoded({extended: true}));
 
 const pool = new Pool({
     // connectionString:  process.env.DATABASE_URL_UNPOOLED,
-    connectionString:  process.env.DATABASE_URL,
+    connectionString:  config.connection_string,
 });
 
 // console.log(pool);
@@ -221,6 +218,6 @@ app.delete("/api/v1/users/:id", async (req: Request, res: Response) => {
 });
 
 
-app.listen(PORT, () => {
-  console.log(`The Express server is running on the port ${PORT}`);
+app.listen(config.port, () => {
+  console.log(`The Express server is running on the port ${config.port}`);
 });
