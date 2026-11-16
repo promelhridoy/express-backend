@@ -1,11 +1,19 @@
-import express from "express";
+import express, { type Application, type Request, type Response } from "express";
+import type { resolvePtr } from "node:dns";
 
-const app = express();
+const app: Application = express();
 
 const PORT = 3000;
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
+app.get("/", (req : Request, res: Response) => {
+//   res.send("Hello World!");
+
+
+res.status(200).json({
+    success: true,
+    message: "This is root route",
+    author: "PHH",
+})
 });
 
 app.listen(PORT, () => {
