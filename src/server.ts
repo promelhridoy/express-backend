@@ -5,6 +5,10 @@ const app: Application = express();
 
 const PORT = 3000;
 
+app.use(express.json())
+app.use(express.text)
+app.use(express.urlencoded({extended: true}))
+
 app.get("/", (req : Request, res: Response) => {
 //   res.send("Hello World!");
 
@@ -16,6 +20,11 @@ res.status(200).json({
 })
 });
 
+app.post("/", async (req: Request, res: Response) => {
+    console.log(req.body);
+    
+})
+
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`The Express server is running on the port ${PORT}`);
 });
