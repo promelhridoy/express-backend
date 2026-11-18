@@ -3,4 +3,5 @@ export interface IUser {
     email: string;
     password: string;
     age?: number | null;
+    is_Active?: boolean;
 }
