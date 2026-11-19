@@ -1,9 +1,12 @@
+
 import { pool } from "../../db";
 
 
 
 const createProfileIntoDB = async (payload : any) => {
    const {user_id, bio, address, phone, gender} = payload;
+
+
     // console.log(password);
 
     const user = await pool.query(`
