@@ -23,7 +23,22 @@ export const iniDB = async () => {
       )
     `);
 
-    console.log("Users table is ready!");
+    await pool.query(`
+        CREATE TABLE IF NOT EXISTS profile(
+        id SERIAL PRIMARY KEY,
+        user_id INT UNIQUE REFERENCES users(id) ON DELETE CASCADE,
+
+        bio TEXT,
+        address TEXT,
+        phone VARCHAR(15),
+        gender VARCHAR(15),
+
+        created_at TIMESTAMP DEFAULT NOW(),
+        updated_at TIMESTAMP DEFAULT NOW()
+        )
+      `)
+
+    console.log("Database Connected!!");
   } catch (error) {
     console.error("Database initialization failed:", error);
     throw error;
