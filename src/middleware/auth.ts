@@ -3,9 +3,12 @@ import type { NextFunction, Request, Response } from "express";
 import jwt, { type JwtPayload } from "jsonwebtoken";
 import config from "../config";
 import { pool } from "../db";
+import logger from "./logger";
 
-const auth = async (
+const auth = (...roles: any) => {
+  return async (
     req: Request, res: Response, next:NextFunction ) => {
+      console.log(roles);
       
 
       // 1-> Check if the token exist
@@ -55,6 +58,7 @@ const auth = async (
 
     next()  
 
+}
 }
 
 export default auth;
