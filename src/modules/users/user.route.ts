@@ -1,13 +1,10 @@
 import { Router } from "express";
 
 import { userController } from "./user.controller";
+import auth from "../../middleware/auth";
 
 const router = Router()
 
-const auth = (req, res, next) => {
-    console.log("This protected route!");
-    next()
-}
 
 router.post("/", userController.createUser);
 router.get("/", auth, userController.getAllUsers );
