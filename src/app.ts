@@ -4,11 +4,17 @@ import { profileRoute } from './modules/profile/profile.route';
 import { authRoute } from "./modules/auth/auth.route";
 import  fs  from "fs";
 import logger from "./middleware/logger";
-
+import globalErrorHandler from "./middleware/globalErrorHandler";
+import cors from "cors";
 
 const app: Application = express();
 
+const corsOptions = {
+  origin: ["http://localhost:3000"],
+  optionsSuccessStatus: 200,
+};
 
+app.use(cors(corsOptions))
 app.use(express.json());
 app.use(express.text());
 app.use(express.urlencoded({extended: true}));
@@ -30,6 +36,8 @@ res.status(200).json({
 });
 
 
+// Global Error Handling Middleware
+app.use(globalErrorHandler);
 
 
 
