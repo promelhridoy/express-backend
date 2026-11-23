@@ -104,3 +104,5 @@ Method : POST | URL : /api/v1/auth/refresh-token | Time : 1795406794310
 Method : POST | URL : /api/v1/auth/refresh-token | Time : 1795406803159
 
 Method : POST | URL : /api/v1/auth/refresh-token | Time : 1795407386674
+
+Method : POST | URL : /api/v1/auth/login | Time : 1795408027073
